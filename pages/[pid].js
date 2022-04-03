@@ -1,16 +1,37 @@
+import axios from 'axios'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
+import { useState, useEffect } from 'react'
 
 const Instructor = ({ name, description, photo }) => {
   return (
     <div className='text-center'>
       <img src={photo} className="rounded-full inline-block aspect-square w-52" />
       <span className='block mt-5 text-xl font-bold'>{name}</span>
-      <p className='mt-5 text-sm'>Reconocido Empresario, Consultor y Conferencista Internacional, ha inspirado a cientos de Emprendedores y Ejecutivos en diferentes países de América, Europa y África.</p>
+      <p className='mt-5 text-sm'>{description}</p>
     </div>
   )
 }
 
-export default function Home() {
+export default function Custom() {
+  const router = useRouter()
+  const [user, setUser] = useState(null)
+
+  useEffect(() => {
+    const load = async () => {
+      const res = await axios.get(`/api/user?pid=${router.query.pid}`)
+      setUser(res.data)
+    }
+    if (router.query.pid) {
+      if (['oscar-gastelum'].includes(router.query.pid)) {
+        setUser(null)
+      } else {
+        load()
+      }
+    }
+  }, [router.query.pid])
+
+  const px = "lg:px-52 md:px-40 px-10"
 
   return (
     <div>
@@ -50,14 +71,14 @@ export default function Home() {
         </div>
 
         {/** */}
-        <div className='text-center px-40'>
+        <div className={`text-center ${px}`}>
           <div className='my-8 h-[1px] bg-gray-100'></div>
           <h1 className='text-3xl text-blue-500'>¿Qué aprenderás en el Entrenamiento?</h1>
           <div className='my-8 h-[1px] bg-gray-100'></div>
           <p className='text-justify text-lg'>
             Durante 3 días seguidos, aprenderás a conocer la esencia de la Inteligencia Financiera y aumentar tu IQ Financiero para tomar mejores desiciones en torno a: <span className='underline decoration-orange-500 decoration-2'>Blindaje Financiero, Estrategias de Ahorro, Diversificación, Multiplicación y Mentalidad para generar un nivel de vida superior</span> y construir verdaderamente un legado para ti y para los tuyos.
           </p>
-          <div className='grid grid-cols-2 mt-10 gap-y-5'>
+          <div className='grid md:grid-cols-2 grid-cols-1 mt-10 gap-y-5'>
             <div className='flex items-center text-left gap-2 text-lg'><img src="/assets/check.png" />Libertad Financiera vs Seguridad Financiera</div>
             <div className='flex items-center text-left gap-2 text-lg'><img src="/assets/check.png" />¿Cómo Cuidar mi Dinero y mi Patrimonio?</div>
             <div className='flex items-center text-left gap-2 text-lg'><img src="/assets/check.png" />Estrategias de Ahorro Porcentual</div>
@@ -72,7 +93,7 @@ export default function Home() {
         <div className='my-10 py-8 px-10 w-full bg-orange-500 flex justify-center text-3xl font-bold text-white'>
           👇🏼Confirma tu Registro AHORA👇🏼
         </div>
-        <div className='px-40 grid grid-cols-2 gap-x-10'>
+        <div className={`${px} grid lg:grid-cols-2 grid-cols-1 gap-x-10`}>
           <div className='border-gray-200 border p-2 shadow-md'>
             <div className='text-md border-white border-2 bg-gray-100 p-2'>
               <h4 className='font-semibold'>¿DÓNDE, CUÁNDO, CÓMO?</h4>
@@ -113,9 +134,10 @@ export default function Home() {
         <div className='my-10 py-8 px-10 w-full bg-orange-500 flex justify-center text-3xl font-bold text-white'>
           Acerca de los Instructores:
         </div>
-        <div className='px-40 grid grid-cols-2 gap-x-7'>
-          <Instructor name="Oscar Gastelum" photo="/photos/oscar-gastelum.jpg" />
-          <Instructor name="Javier" photo="/photos/oscar-gastelum.jpg" />
+        <div className={`${px} grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-x-7 gap-y-10`}>
+          {user && <Instructor name={user.name} photo={user.photo} description={user.description} />}
+          <Instructor name="Oscar Gastelum" photo="/photos/oscar-gastelum.jpg" description={"Reconocido Empresario, Consultor y Conferencista Internacional, ha inspirado a cientos de Emprendedores y Ejecutivos en diferentes países de América, Europa y África."} />
+          <Instructor name="Javier" photo="/photos/oscar-gastelum.jpg" description={"Reconocido Empresario, Consultor y Conferencista Internacional, ha inspirado a cientos de Emprendedores y Ejecutivos en diferentes países de América, Europa y África."} />
         </div>
       </div>
 
