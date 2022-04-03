@@ -17,7 +17,8 @@ export default function Home() {
     e.preventDefault()
     const data = Object.fromEntries(new FormData(e.target))
     const photo = await toBase64(photoRef.current.files[0])
-    axios.post('/api/user', { ...data, photo })
+    const res = await axios.post('/api/user', { ...data, photo })
+    window.location.href = `/${res.data.url}`
   }
 
   return (

@@ -64,7 +64,11 @@ export default async function handler(req, res) {
                 console.log('valid-url', url)
                 const urlPhoto = await writeImage(url, photo)
                 const user = await newUser(name, urlPhoto, url)
-                res.json(user)
+                res.json({
+                    name,
+                    photo: urlPhoto,
+                    url
+                })
             } catch (err) {
                 res.json(err);
                 res.status(500).end()
