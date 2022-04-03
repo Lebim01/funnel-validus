@@ -98,25 +98,15 @@ export default function Custom() {
             <div className='text-md border-white border-2 bg-gray-100 p-2'>
               <h4 className='font-semibold'>¿DÓNDE, CUÁNDO, CÓMO?</h4>
               <br />
-              <span className='block'>📆 12, 13, 14 ENERO 2021</span>
+              <span className='block'>📆 Hoy y Mañana</span>
               <span>
                 <img draggable="false" role="img" className="emoji" alt="🕒" src="https://s.w.org/images/core/emoji/13.0.0/svg/1f552.svg" />
-                10:00 AM
-                <img draggable="false" role="img" className="emoji" alt="🇲🇽" src="https://s.w.org/images/core/emoji/13.0.0/svg/1f1f2-1f1fd.svg" />
-                <img draggable="false" role="img" className="emoji" alt="🇬🇹" src="https://s.w.org/images/core/emoji/13.0.0/svg/1f1ec-1f1f9.svg" />
-                <br />
-                <img draggable="false" role="img" className="emoji" alt="🕒" src="https://s.w.org/images/core/emoji/13.0.0/svg/1f552.svg" />
-                &nbsp;11:00 AM
+                &nbsp;09:00 PM
                 <img draggable="false" role="img" className="emoji" alt="🇪🇨" src="https://s.w.org/images/core/emoji/13.0.0/svg/1f1ea-1f1e8.svg" />
                 <img draggable="false" role="img" className="emoji" alt="🇨🇴" src="https://s.w.org/images/core/emoji/13.0.0/svg/1f1e8-1f1f4.svg" />
                 <img draggable="false" role="img" className="emoji" alt="🇵🇪" src="https://s.w.org/images/core/emoji/13.0.0/svg/1f1f5-1f1ea.svg" />
                 <img draggable="false" role="img" className="emoji" alt="🇵🇦" src="https://s.w.org/images/core/emoji/13.0.0/svg/1f1f5-1f1e6.svg" />
-                <br />
-                <img draggable="false" role="img" className="emoji" alt="🕒" src="https://s.w.org/images/core/emoji/13.0.0/svg/1f552.svg" />
-                01:00 PM
-                <img draggable="false" role="img" className="emoji" alt="🇦🇷" src="https://s.w.org/images/core/emoji/13.0.0/svg/1f1e6-1f1f7.svg" />
-                <img draggable="false" role="img" className="emoji" alt="🇺🇾" src="https://s.w.org/images/core/emoji/13.0.0/svg/1f1fa-1f1fe.svg" />
-                <img draggable="false" role="img" className="emoji" alt="🇨🇱" src="https://s.w.org/images/core/emoji/13.0.0/svg/1f1e8-1f1f1.svg" />
+                <img draggable="false" role="img" className="emoji" alt="🇲🇽" src="https://s.w.org/images/core/emoji/13.0.0/svg/1f1f2-1f1fd.svg" />
                 <br />
               </span>
               <span className='block'>📍 En línea, ¡Desde cualquier parte del mundo! </span>
@@ -134,7 +124,7 @@ export default function Custom() {
         <div className='my-10 py-8 px-10 w-full bg-orange-500 flex justify-center text-3xl font-bold text-white'>
           Acerca de los Instructores:
         </div>
-        <div className={`${px} grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-x-7 gap-y-10`}>
+        <div className={`${px} grid lg:${!user ? 'grid-cols-2' : 'grid-cols-3'} md:grid-cols-2 grid-cols-1 gap-x-7 gap-y-10`}>
           {user && <Instructor name={user.name} photo={user.photo} description={user.description} />}
           <Instructor name="Oscar Gastelum" photo="/photos/oscar-gastelum.jpg" description={"Reconocido Empresario, Consultor y Conferencista Internacional, ha inspirado a cientos de Emprendedores y Ejecutivos en diferentes países de América, Europa y África."} />
           <Instructor name="Javier" photo="/photos/oscar-gastelum.jpg" description={"Reconocido Empresario, Consultor y Conferencista Internacional, ha inspirado a cientos de Emprendedores y Ejecutivos en diferentes países de América, Europa y África."} />
