@@ -125,7 +125,7 @@ export default function Custom() {
       {/** body */}
       <div>
         {/** video */}
-        <div className='text-right py-10 px-20 overflow-hidden'>
+        <div className='text-right py-10 sm:px-20 overflow-hidden'>
           <div className='inline-block w-[450px] h-[300px] max-w-full'>
             <iframe
               src="https://player.vimeo.com/video/489900880?autoplay=1&amp;loop=1&amp;autopause=0"
