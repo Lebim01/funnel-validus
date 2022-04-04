@@ -159,7 +159,7 @@ export default function Custom() {
       </div>
 
       <div>
-        <div className='my-10 py-8 px-10 w-full bg-orange-500 flex justify-center text-3xl font-bold text-white'>
+        <div className='my-10 py-8 px-10 w-full bg-orange-500 flex justify-center text-3xl font-bold text-white text-center'>
           👇🏼Confirma tu Registro AHORA👇🏼
         </div>
         <div className={`${px} grid lg:grid-cols-2 grid-cols-1 gap-x-10`}>
@@ -197,7 +197,7 @@ export default function Custom() {
       </div>
 
       <div>
-        <div className='my-10 py-8 px-10 w-full bg-orange-500 flex justify-center text-3xl font-bold text-white'>
+        <div className='my-10 py-8 px-10 w-full bg-orange-500 flex justify-center text-3xl font-bold text-white text-center'>
           Acerca de los Instructores:
         </div>
         <div className={`${px} grid md:${!user ? 'grid-cols-1' : 'grid-cols-2'} grid-cols-1 gap-x-7 gap-y-10`}>
