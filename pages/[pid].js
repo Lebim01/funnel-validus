@@ -2,31 +2,75 @@ import axios from 'axios'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
+import Script from 'next/script'
 
-const Instructor = ({ name, description, photo }) => {
+const Instructor = ({ name, description, photo, phone, instagram }) => {
   return (
     <div className='text-center'>
       <img src={photo} className="rounded-full inline-block aspect-square w-52" />
       <span className='block mt-5 text-xl font-bold'>{name}</span>
+      <div>
+        {phone &&
+          <a className='text-3xl py-2 px-3 rounded-md text-black hover:text-green-500' href={`https://api.whatsapp.com/send?phone=${phone}&text=Hola%2C%20me%20gustar%C3%ADa%20tener%20mas%20informaci%C3%B3n%20para%20tener%20rentabilidad%20con%20mis%20inversiones`} target="_blank">
+            <i className="fa-brands fa-whatsapp"></i>
+          </a>
+        }
+        {instagram &&
+          <a className='text-3xl py-2 px-3 rounded-md text-black hover:text-pink-500' href={instagram} target="_blank">
+            <i className="fa-brands fa-instagram"></i>
+          </a>
+        }
+      </div>
       <p className='mt-5 text-sm'>{description}</p>
     </div>
   )
 }
 
+const ButtonVIPGroup = ({ phone }) => (
+  <a
+    href={`https://api.whatsapp.com/send?phone=${phone}&text=Hola%2C%20me%20gustar%C3%ADa%20tener%20mas%20informaci%C3%B3n%20para%20tener%20rentabilidad%20con%20mis%20inversiones`}
+    className='w-64 text-white btn-whatsapp rounded-full px-5 py-3 font-bold flex gap-4 items-center hover:scale-110 hover:bg-green-700 hover:cursor-pointer transition-transform'
+  >
+    <i className="text-lg fa-brands fa-whatsapp"></i>
+    <span>
+      Contacte con nosotros
+    </span>
+  </a>
+)
+
+const PATTERNS = ['oscar-gastelum', 'victor-alvarez']
+
 export default function Custom() {
   const router = useRouter()
+  const [whatsapp, setWhatsapp] = useState('526691160038')
   const [user, setUser] = useState(null)
+  const [patterns, setPatterns] = useState([])
+
+  const getPatterns = async () => {
+    const _patterns = []
+    for (const id of PATTERNS) {
+      const res = await axios.get(`/api/user?pid=${id}`)
+      _patterns.push(res.data)
+    }
+    setPatterns(_patterns)
+  }
+
+  const loadUser = async () => {
+    const res = await axios.get(`/api/user?pid=${router.query.pid}`)
+    setUser(res.data)
+    setWhatsapp(res.data.whatsapp)
+  }
 
   useEffect(() => {
-    const load = async () => {
-      const res = await axios.get(`/api/user?pid=${router.query.pid}`)
-      setUser(res.data)
-    }
+    getPatterns()
+  }, [])
+
+  useEffect(() => {
     if (router.query.pid) {
-      if (['oscar-gastelum'].includes(router.query.pid)) {
+      if (PATTERNS.includes(router.query.pid)) {
         setUser(null)
       } else {
-        load()
+        loadUser()
       }
     }
   }, [router.query.pid])
@@ -44,6 +88,8 @@ export default function Custom() {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
         <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300&display=swap" rel="stylesheet" />
       </Head>
+
+      <Script src="https://kit.fontawesome.com/e2c8f51d15.js" crossOrigin="anonymous"></Script>
 
       {/** header */}
       <div className='py-8 px-10 w-full bg-orange-500 flex justify-center'>
@@ -126,9 +172,16 @@ export default function Custom() {
         </div>
         <div className={`${px} grid lg:${!user ? 'grid-cols-2' : 'grid-cols-3'} md:grid-cols-2 grid-cols-1 gap-x-7 gap-y-10`}>
           {user && <Instructor name={user.name} photo={user.photo} description={user.description} />}
-          <Instructor name="Oscar Gastelum" photo="/photos/oscar-gastelum.jpg" description={"Reconocido Empresario, Consultor y Conferencista Internacional, ha inspirado a cientos de Emprendedores y Ejecutivos en diferentes países de América, Europa y África."} />
-          <Instructor name="Javier" photo="/photos/oscar-gastelum.jpg" description={"Reconocido Empresario, Consultor y Conferencista Internacional, ha inspirado a cientos de Emprendedores y Ejecutivos en diferentes países de América, Europa y África."} />
+          {patterns.map((user, i) =>
+            <Instructor {...user} key={i} />
+          )}
         </div>
+
+        {whatsapp &&
+          <div className={`${px} flex justify-center mt-10`}>
+            <ButtonVIPGroup phone={whatsapp} />
+          </div>
+        }
       </div>
 
       <div className='mt-10 py-4 px-10 w-full bg-orange-500 flex justify-center text-sm font-bold text-white'>

@@ -6,9 +6,9 @@ const getUser = async (url) => {
     return queryresult.length > 0 ? { ...queryresult[0] } : null
 }
 
-const newUser = async (name, photo, url) => {
+const newUser = async (name, photo, url, phone) => {
     try {
-        const queryresult = await connection.awaitQuery(`INSERT INTO users SET name = ?, photo = ?, url = ?`, [name.trim(), photo.trim(), url]);
+        const queryresult = await connection.awaitQuery(`INSERT INTO users SET name = ?, photo = ?, url = ?, phone = ?`, [name.trim(), photo.trim(), url, phone]);
         return { ...queryresult[0] }
     } catch (err) {
         console.error(err)
@@ -44,7 +44,6 @@ const getValidUrl = async (url, sec = 0) => {
 }
 
 export default async function handler(req, res) {
-    const { name, photo } = req.body
     const { method } = req
 
     switch (method) {
@@ -59,11 +58,11 @@ export default async function handler(req, res) {
             break;
         case 'POST':
             try {
+                const { name, photo, phone } = req.body
                 const _url = name.trim().split(' ').map(word => word.toLowerCase().trim()).join('-')
                 const url = await getValidUrl(_url)
-                console.log('valid-url', url)
                 const urlPhoto = await writeImage(url, photo)
-                const user = await newUser(name, urlPhoto, url)
+                await newUser(name, urlPhoto, url, phone)
                 res.json({
                     name,
                     photo: urlPhoto,
