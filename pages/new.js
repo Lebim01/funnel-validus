@@ -15,10 +15,14 @@ export default function Home() {
 
   const register = async (e) => {
     e.preventDefault()
-    const data = Object.fromEntries(new FormData(e.target))
-    const photo = await toBase64(photoRef.current.files[0])
-    const res = await axios.post('/api/user', { ...data, photo })
-    window.location.href = `/${res.data.url}`
+    try {
+      const data = Object.fromEntries(new FormData(e.target))
+      const photo = await toBase64(photoRef.current.files[0])
+      const res = await axios.post('/api/user', { ...data, photo })
+      window.location.href = `/${res.data.url}`
+    } catch (err) {
+      alert(err.toString())
+    }
   }
 
   return (
