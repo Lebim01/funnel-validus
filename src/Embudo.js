@@ -3,6 +3,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import Script from 'next/script'
+import { NEXT_PUBLIC_GOOGLE_ANALYTICS } from './constants'
 
 const Instructor = ({ name, description, photo, phone, instagram, linkedin }) => {
   return (
@@ -92,6 +93,21 @@ export default function Custom() {
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
         <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300&display=swap" rel="stylesheet" />
+        <script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=G-1H024E39XC`}
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', 'G-1H024E39XC');
+          `,
+          }}
+        />
       </Head>
 
       <Script src="https://kit.fontawesome.com/e2c8f51d15.js" crossOrigin="anonymous"></Script>
