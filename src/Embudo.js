@@ -44,7 +44,7 @@ const ButtonVIPGroup = ({ phone, text }) => (
   </a>
 )
 
-const PATTERNS = ['oscar-gastelum', 'victor-alvarez']
+const PATTERNS = ['oscar-gastelum']
 
 export default function Custom() {
   const router = useRouter()
@@ -193,7 +193,7 @@ export default function Custom() {
         <div className='my-10 py-8 px-10 w-full bg-orange-500 flex justify-center text-3xl font-bold text-white'>
           Acerca de los Instructores:
         </div>
-        <div className={`${px} grid lg:${!user ? 'grid-cols-2' : 'grid-cols-3'} md:grid-cols-2 grid-cols-1 gap-x-7 gap-y-10`}>
+        <div className={`${px} grid md:${!user ? 'grid-cols-1' : 'grid-cols-2'} grid-cols-1 gap-x-7 gap-y-10`}>
           {user && <Instructor {...user} />}
           {patterns.map(({ phone, ...user }, i) =>
             <Instructor {...user} key={i} />
