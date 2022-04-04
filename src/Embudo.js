@@ -32,14 +32,14 @@ const Instructor = ({ name, description, photo, phone, instagram, linkedin }) =>
   )
 }
 
-const ButtonVIPGroup = ({ phone }) => (
+const ButtonVIPGroup = ({ phone, text }) => (
   <a
     href={`https://api.whatsapp.com/send?phone=${phone}&text=Hola%2C%20me%20gustar%C3%ADa%20tener%20mas%20informaci%C3%B3n%20para%20tener%20rentabilidad%20con%20mis%20inversiones`}
-    className='w-64 text-white btn-whatsapp rounded-full px-5 py-3 font-bold flex gap-4 items-center hover:scale-110 hover:bg-green-700 hover:cursor-pointer transition-transform'
+    className='text-white btn-whatsapp rounded-full px-5 py-3 font-bold flex gap-4 items-center hover:scale-110 hover:bg-green-700 hover:cursor-pointer transition-transform'
   >
     <i className="text-lg fa-brands fa-whatsapp"></i>
     <span>
-      Contáctate con nosotros
+      {text ? text : 'Contáctate con nosotros'}
     </span>
   </a>
 )
@@ -169,12 +169,12 @@ export default function Custom() {
               <span className='block font-bold'>📆 Hoy y Mañana</span>
               <span>
                 <img draggable="false" role="img" className="emoji" alt="🕒" src="https://s.w.org/images/core/emoji/13.0.0/svg/1f552.svg" />
+                &nbsp;08:00 PM
+                Chihuahua Sinaloa
+                <br />
+                <img draggable="false" role="img" className="emoji" alt="🕒" src="https://s.w.org/images/core/emoji/13.0.0/svg/1f552.svg" />
                 &nbsp;09:00 PM
-                <img draggable="false" role="img" className="emoji" alt="🇪🇨" src="https://s.w.org/images/core/emoji/13.0.0/svg/1f1ea-1f1e8.svg" />
-                <img draggable="false" role="img" className="emoji" alt="🇨🇴" src="https://s.w.org/images/core/emoji/13.0.0/svg/1f1e8-1f1f4.svg" />
-                <img draggable="false" role="img" className="emoji" alt="🇵🇪" src="https://s.w.org/images/core/emoji/13.0.0/svg/1f1f5-1f1ea.svg" />
-                <img draggable="false" role="img" className="emoji" alt="🇵🇦" src="https://s.w.org/images/core/emoji/13.0.0/svg/1f1f5-1f1e6.svg" />
-                <img draggable="false" role="img" className="emoji" alt="🇲🇽" src="https://s.w.org/images/core/emoji/13.0.0/svg/1f1f2-1f1fd.svg" />
+                Col Perú CDMX
                 <br />
               </span>
               <span className='block'>📍 En línea, ¡Desde cualquier parte del mundo! </span>
@@ -182,7 +182,13 @@ export default function Custom() {
               <h4 className='font-semibold'>BENEFICIOS:</h4>
               <span className='block'>⭐️ Acceso GRATUITO a entrenamientos (Registro Previo)</span>
               <span className='block'>⭐️ Acceso EXCLUSIVO a grupo de Telegram</span>
+              <br />
               <h4 className='font-semibold'>LINK AL WHATSAPP AQUÍ</h4>
+              {whatsapp &&
+                <div className={`flex justify-center mt-3`}>
+                  <ButtonVIPGroup phone={whatsapp} text="Contáctate" />
+                </div>
+              }
             </div>
           </div>
           <div></div>
