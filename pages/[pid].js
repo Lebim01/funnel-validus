@@ -4,10 +4,10 @@ import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import Script from 'next/script'
 
-const Instructor = ({ name, description, photo, phone, instagram }) => {
+const Instructor = ({ name, description, photo, phone, instagram, linkedin }) => {
   return (
     <div className='text-center'>
-      <img src={photo} className="rounded-full inline-block aspect-square w-52" />
+      <img src={photo} className="rounded-full border border-black inline-block aspect-square w-52" />
       <span className='block mt-5 text-xl font-bold'>{name}</span>
       <div>
         {phone &&
@@ -18,6 +18,11 @@ const Instructor = ({ name, description, photo, phone, instagram }) => {
         {instagram &&
           <a className='text-3xl py-2 px-3 rounded-md text-black hover:text-pink-500' href={instagram} target="_blank">
             <i className="fa-brands fa-instagram"></i>
+          </a>
+        }
+        {linkedin &&
+          <a className='text-3xl py-2 px-3 rounded-md text-black hover:text-blue-500' href={linkedin} target="_blank">
+            <i className="fa-brands fa-linkedin"></i>
           </a>
         }
       </div>
@@ -33,7 +38,7 @@ const ButtonVIPGroup = ({ phone }) => (
   >
     <i className="text-lg fa-brands fa-whatsapp"></i>
     <span>
-      Contacte con nosotros
+      Contáctate con nosotros
     </span>
   </a>
 )
@@ -144,7 +149,7 @@ export default function Custom() {
             <div className='text-md border-white border-2 bg-gray-100 p-2'>
               <h4 className='font-semibold'>¿DÓNDE, CUÁNDO, CÓMO?</h4>
               <br />
-              <span className='block'>📆 Hoy y Mañana</span>
+              <span className='block font-bold'>📆 Hoy y Mañana</span>
               <span>
                 <img draggable="false" role="img" className="emoji" alt="🕒" src="https://s.w.org/images/core/emoji/13.0.0/svg/1f552.svg" />
                 &nbsp;09:00 PM
@@ -171,7 +176,7 @@ export default function Custom() {
           Acerca de los Instructores:
         </div>
         <div className={`${px} grid lg:${!user ? 'grid-cols-2' : 'grid-cols-3'} md:grid-cols-2 grid-cols-1 gap-x-7 gap-y-10`}>
-          {user && <Instructor name={user.name} photo={user.photo} description={user.description} />}
+          {user && <Instructor {...user} />}
           {patterns.map((user, i) =>
             <Instructor {...user} key={i} />
           )}
