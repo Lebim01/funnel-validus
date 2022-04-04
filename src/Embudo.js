@@ -141,10 +141,10 @@ export default function Custom() {
         {/** */}
         <div className={`text-center ${px}`}>
           <div className='my-8 h-[1px] bg-gray-100'></div>
-          <h1 className='text-3xl text-blue-500'>¿Qué aprenderás en el Entrenamiento?</h1>
+          <h1 className='text-3xl text-blue-500'>Qué aprenderás en esta reunión EXCLUSIVA?</h1>
           <div className='my-8 h-[1px] bg-gray-100'></div>
           <p className='text-justify text-lg'>
-            Durante 3 días seguidos, aprenderás a conocer la esencia de la Inteligencia Financiera y aumentar tu IQ Financiero para tomar mejores desiciones en torno a: <span className='underline decoration-orange-500 decoration-2'>Blindaje Financiero, Estrategias de Ahorro, Diversificación, Multiplicación y Mentalidad para generar un nivel de vida superior</span> y construir verdaderamente un legado para ti y para los tuyos.
+            Aprenderas algo que solo el 5% de la población utiliza a su favor, conocerás la esencia de la Inteligencia Financiera y aumentar tus ingresos de una manera automatizada y aún más importante cómo capitalizar en Cripto activos para generar un nivel de vida superior y construir verdaderamente un legado para ti y para los tuyos.
           </p>
           <div className='grid md:grid-cols-2 grid-cols-1 mt-10 gap-y-5'>
             <div className='flex items-center text-left gap-2 text-lg'><img src="/assets/check.png" />Libertad Financiera vs Seguridad Financiera</div>
@@ -180,8 +180,9 @@ export default function Custom() {
               <span className='block'>📍 En línea, ¡Desde cualquier parte del mundo! </span>
               <br />
               <h4 className='font-semibold'>BENEFICIOS:</h4>
-              <span className='block'>⭐️ Acceso GRATUITO a entrenamiento de 3 días (Registro Previo)</span>
+              <span className='block'>⭐️ Acceso GRATUITO a entrenamientos (Registro Previo)</span>
               <span className='block'>⭐️ Acceso EXCLUSIVO a grupo de Telegram</span>
+              <h4 className='font-semibold'>LINK AL WHATSAPP AQUÍ</h4>
             </div>
           </div>
           <div></div>
