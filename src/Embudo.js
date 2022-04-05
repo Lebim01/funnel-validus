@@ -99,7 +99,6 @@ export default function Custom() {
           async
           src={`https://www.googletagmanager.com/gtag/js?id=G-1H024E39XC`}
         />
-        <script async src="https://player.vimeo.com/api/player.js"></script>
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -130,12 +129,14 @@ export default function Custom() {
         <div className='text-right py-10 sm:px-20 overflow-hidden'>
           <div className='inline-block w-[450px] h-[300px] max-w-full'>
             <iframe
-              src="https://player.vimeo.com/video/695886230?h=377aadfb0d&autoplay=1&loop=1"
-              className='w-full h-wull min-w-[450px] aspect-video'
+              width="560"
+              height="315"
+              src="https://www.youtube.com/embed/n14atT76urc?controls=0&autoplay=1"
+              title="YouTube video player"
               frameBorder="0"
-              allow="autoplay; fullscreen; picture-in-picture"
-              allowFullScreen
-            ></iframe>
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen>
+            </iframe>
           </div>
         </div>
 
