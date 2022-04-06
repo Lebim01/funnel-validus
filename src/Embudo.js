@@ -103,8 +103,7 @@ export default function Custom() {
   const selectedPattern = PATTERNS.includes(router.query.pid) ? patterns.find(r => r.url === router.query.pid) : null
 
   const now = moment()
-  const nextMeet = now.hours() > 20 ? now.add(1, 'day').hours(20).minutes(0).toDate() : now.hours(20).minutes(0).toDate()
-  console.log({ nextMeet })
+  const nextMeet = now.hours() > 20 ? now.add(1, 'day').hours(20).minutes(0).seconds(0).toDate() : now.hours(20).minutes(0).seconds(0).toDate()
 
   return (
     <div className='w-100 overflow-hidden'>
