@@ -131,6 +131,25 @@ export default function Custom() {
           `,
           }}
         />
+
+        {user && user.url === 'victor-alvarez' &&
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                !function(f,b,e,v,n,t,s)
+                {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+                n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+                if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+                n.queue=[];t=b.createElement(e);t.async=!0;
+                t.src=v;s=b.getElementsByTagName(e)[0];
+                s.parentNode.insertBefore(t,s)}(window, document,'script',
+                'https://connect.facebook.net/en_US/fbevents.js');
+                fbq('init', '1136304660520178');
+                fbq('track', 'PageView');
+              `
+            }}
+          />
+        }
       </Head>
 
       <Script src="https://kit.fontawesome.com/e2c8f51d15.js" crossOrigin="anonymous"></Script>
@@ -240,6 +259,6 @@ export default function Custom() {
       <div className='mt-10 py-4 px-10 w-full bg-orange-500 flex justify-center text-sm font-bold text-white'>
         . : Todos los derechos reservados 2022 : .
       </div>
-    </div>
+    </div >
   )
 }
