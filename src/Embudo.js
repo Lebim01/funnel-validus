@@ -3,7 +3,8 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import Script from 'next/script'
-import { NEXT_PUBLIC_GOOGLE_ANALYTICS } from './constants'
+import Countdown from "react-countdown";
+import moment from 'moment'
 
 const Instructor = ({ name, description, photo, phone, instagram, linkedin }) => {
   return (
@@ -44,6 +45,23 @@ const ButtonVIPGroup = ({ phone, text }) => (
   </a>
 )
 
+const renderer = ({ hours, minutes, seconds, completed }) => {
+  return (
+    <div>
+      <span className='text-sm'>Cuando este contador llegue a cero los accesos se cerrarán.</span>
+      <div className='grid grid-cols-3 text-5xl text-orange-500'>
+        <div>{hours}</div>
+        <div>{minutes.toString().length === 1 ? '0' : ''}{minutes}</div>
+        <div>{seconds.toString().length === 1 ? '0' : ''}{seconds}</div>
+
+        <div className='text-lg'>Horas</div>
+        <div className='text-lg'>Minutos</div>
+        <div className='text-lg'>Segundos</div>
+      </div>
+    </div>
+  )
+};
+
 const PATTERNS = ['oscar-gastelum']
 
 export default function Custom() {
@@ -83,6 +101,10 @@ export default function Custom() {
 
   const px = "lg:px-52 md:px-40 px-10"
   const selectedPattern = PATTERNS.includes(router.query.pid) ? patterns.find(r => r.url === router.query.pid) : null
+
+  const now = moment()
+  const nextMeet = now.hours() > 20 ? now.add(1, 'day').hours(20).minutes(0).toDate() : now.hours(20).minutes(0).toDate()
+  console.log({ nextMeet })
 
   return (
     <div className='w-100 overflow-hidden'>
@@ -126,7 +148,7 @@ export default function Custom() {
       {/** body */}
       <div>
         {/** video */}
-        <div className='text-right py-10 sm:px-20 overflow-hidden'>
+        <div className='text-center py-10 sm:px-20 overflow-hidden'>
           <div className='inline-block w-[450px] h-[300px] max-w-full'>
             <iframe
               src="https://player.vimeo.com/video/695886230?h=377aadfb0d&autoplay=1&loop=1"
@@ -135,6 +157,10 @@ export default function Custom() {
               allow="autoplay; fullscreen; picture-in-picture"
               allowFullScreen
             ></iframe>
+            <br />
+            <Countdown date={nextMeet} renderer={renderer}>
+
+            </Countdown>
           </div>
         </div>
 
@@ -161,8 +187,8 @@ export default function Custom() {
         <div className='my-10 py-8 px-10 w-full bg-orange-500 flex justify-center text-3xl font-bold text-white text-center'>
           👇🏼Confirma tu Registro AHORA👇🏼
         </div>
-        <div className={`${px} grid lg:grid-cols-2 grid-cols-1 gap-x-10`}>
-          <div className='border-gray-200 border p-2 shadow-md'>
+        <div className={`${px} gap-x-10 flex justify-center`}>
+          <div className='border-gray-200 border p-2 shadow-md lg:w-1/2 w-full'>
             <div className='text-md border-white border-2 bg-gray-100 p-2'>
               <h4 className='font-semibold'>¿DÓNDE, CUÁNDO, CÓMO?</h4>
               <br />
@@ -191,7 +217,6 @@ export default function Custom() {
               }
             </div>
           </div>
-          <div></div>
         </div>
       </div>
 
