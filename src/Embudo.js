@@ -82,7 +82,7 @@ export default function Custom() {
   const loadUser = async () => {
     const res = await axios.get(`/api/user?pid=${router.query.pid}`)
     setUser(res.data)
-    setWhatsapp(res.data.whatsapp)
+    setWhatsapp(res.data.phone)
   }
 
   useEffect(() => {
