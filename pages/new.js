@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import axios from 'axios'
 import { useRef } from 'react'
-import { useState } from 'react/cjs/react.production.min';
+import { useState } from 'react';
 
 const toBase64 = file => new Promise((resolve, reject) => {
   const reader = new FileReader();
