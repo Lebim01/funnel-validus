@@ -1,6 +1,4 @@
 import connection from '../../mysql/connection'
-import fs from 'fs'
-import formidable from 'formidable'
 
 const getUser = async (url) => {
     const queryresult = await connection.awaitQuery(`SELECT * FROM users WHERE url = ?`, [url.trim()]);
@@ -28,12 +26,6 @@ const getValidUrl = async (url, sec = 0) => {
     } catch {
         return url
     }
-}
-
-export const config = {
-    api: {
-        bodyParser: false,
-    },
 }
 
 export default async function handler(req, res) {
