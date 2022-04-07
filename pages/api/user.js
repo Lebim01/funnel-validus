@@ -51,16 +51,11 @@ export default async function handler(req, res) {
             break;
         case 'POST':
             try {
+                console.log(req.body)
                 const { name, photo, phone, instagram } = req.body
                 const _url = name.trim().split(' ').map(word => word.toLowerCase().trim()).join('-')
                 const url = await getValidUrl(_url)
                 //const urlPhoto = await writeImage(url, photo)
-                const form = new formidable.IncomingForm();
-                form.uploadDir = "public/photos/";
-                form.keepExtensions = true;
-                form.parse(req, (err, fields, files) => {
-                    console.log(err, fields, files);
-                });
                 await newUser(name, urlPhoto, url, phone, instagram)
                 res.json({
                     name,
