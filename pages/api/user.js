@@ -31,7 +31,6 @@ const getValidUrl = async (url, sec = 0) => {
 const saveFile = async (file) => {
     const data = fs.readFileSync(file.path);
     fs.writeFileSync(`./public/photos/${file.name}`, data);
-    await fs.unlinkSync(file.path);
     return;
 };
 

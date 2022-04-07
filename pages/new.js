@@ -22,8 +22,8 @@ export default function Home() {
       formData.append('phone', data.phone)
       formData.append('instagram', data.instagram)
       formData.append('photo', photoRef.current.files[0])
-      const res = await axios.post('/api/user', formData, { headers: { "Content-Type": "multipart/form-data" } })
-      window.location.href = `/${res.data.url}`
+      const res = await fetch('/api/user', { method: 'POST', body: formData })
+      //window.location.href = `/${res.data.url}`
     } catch (err) {
       alert(err.toString())
     }
