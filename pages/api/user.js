@@ -1,6 +1,6 @@
 import connection from '../../mysql/connection'
 import fs from 'fs'
-import multer from 'multer';
+import formidable from 'formidable'
 
 const getUser = async (url) => {
     const queryresult = await connection.awaitQuery(`SELECT * FROM users WHERE url = ?`, [url.trim()]);
@@ -14,23 +14,6 @@ const newUser = async (name, photo, url, phone, instagram) => {
     } catch (err) {
         console.error(err)
     }
-}
-
-const writeImage = async (url, photoBase64) => {
-    /*return new Promise((resolve, reject) => {
-        const ext = photoBase64.split(':')[1].split(";")[0].split("/")[1];
-        const base64Data = photoBase64.split('base64,')[1];
-
-        console.log(base64Data)
-
-        fs.writeFile(`public/photos/${url}.${ext}`, base64Data, 'base64', function (err) {
-            if (err) {
-                console.log(err)
-                reject()
-            } else
-                resolve(`/photos/${url}.${ext}`)
-        });
-    })*/
 }
 
 const getValidUrl = async (url, sec = 0) => {
@@ -47,10 +30,14 @@ const getValidUrl = async (url, sec = 0) => {
     }
 }
 
+export const config = {
+    api: {
+        bodyParser: false,
+    },
+}
+
 export default async function handler(req, res) {
     const { method } = req
-
-    console.log(req.body)
 
     switch (method) {
         case 'GET':
@@ -67,7 +54,13 @@ export default async function handler(req, res) {
                 const { name, photo, phone, instagram } = req.body
                 const _url = name.trim().split(' ').map(word => word.toLowerCase().trim()).join('-')
                 const url = await getValidUrl(_url)
-                const urlPhoto = await writeImage(url, photo)
+                //const urlPhoto = await writeImage(url, photo)
+                const form = new formidable.IncomingForm();
+                form.uploadDir = "public/photos/";
+                form.keepExtensions = true;
+                form.parse(req, (err, fields, files) => {
+                    console.log(err, fields, files);
+                });
                 await newUser(name, urlPhoto, url, phone, instagram)
                 res.json({
                     name,
