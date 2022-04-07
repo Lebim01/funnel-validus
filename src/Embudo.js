@@ -9,7 +9,7 @@ import moment from 'moment'
 const Instructor = ({ name, description, photo, phone, instagram, linkedin }) => {
   return (
     <div className='text-center'>
-      <img src={`://photos.beneficiosautomaticos.com/${photo}`} className="rounded-full border border-black inline-block aspect-square w-52" />
+      <img src={`https://photos.beneficiosautomaticos.com/${photo}`} className="rounded-full border border-black inline-block aspect-square w-52" />
       <span className='block mt-5 text-xl font-bold'>{name}</span>
       <div>
         {phone &&
