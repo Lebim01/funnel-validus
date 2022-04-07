@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import axios from 'axios'
 import { useRef } from 'react'
+import { useState } from 'react/cjs/react.production.min';
 
 const toBase64 = file => new Promise((resolve, reject) => {
   const reader = new FileReader();
@@ -10,7 +11,8 @@ const toBase64 = file => new Promise((resolve, reject) => {
 });
 
 export default function Home() {
-
+  const [image, setImage] = useState(null)
+  const [createObjectURL, setCreateObjectURL] = useState(null);
   const photoRef = useRef(null)
 
   const register = async (e) => {
@@ -21,11 +23,19 @@ export default function Home() {
       formData.append('name', data.name)
       formData.append('phone', data.phone)
       formData.append('instagram', data.instagram)
-      formData.append('file', photoRef.current.files[0])
+      formData.append('file', i)
       const res = await fetch('/api/user', { method: 'POST', body: formData })
       //window.location.href = `/${res.data.url}`
     } catch (err) {
       alert(err.toString())
+    }
+  }
+
+  const changeImage = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      const i = e.target.files[0]
+      setImage(i)
+      setCreateObjectURL(URL.createObjectURL(i))
     }
   }
 
@@ -65,6 +75,7 @@ export default function Home() {
               <div className="mb-3 w-96">
                 <input
                   ref={photoRef}
+                  onChange={changeImage}
                   className="form-control
                     block
                     w-full
@@ -80,6 +91,8 @@ export default function Home() {
                     ease-in-out
                     m-0
                     focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" type="file" id="photo" name="photo" required />
+
+                <img src={createObjectURL} height={50} width={50} />
               </div>
             </div>
           </div>
