@@ -17,14 +17,15 @@ const newUser = async (name, photo, url, phone, instagram) => {
 
 const writeImage = (url, photoBase64) => {
     return new Promise((resolve, reject) => {
+        const ext = photoBase64.split(':')[1].split(";")[0].split("/")[1];
         const base64Data = photoBase64.split('base64,')[1];
 
-        fs.writeFile(`public/photos/${url}.png`, base64Data, 'base64', function (err) {
+        fs.writeFile(`public/photos/${url}.${ext}`, base64Data, 'base64', function (err) {
             if (err) {
                 console.log(err)
                 reject()
             } else
-                resolve(`/photos/${url}.png`)
+                resolve(`/photos/${url}.${ext}`)
         });
     })
 }
