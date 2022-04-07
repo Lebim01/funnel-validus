@@ -2,8 +2,6 @@ import connection from '../../mysql/connection'
 import fs from 'fs'
 import multer from 'multer';
 
-const upload = multer({ dest: os.tmpdir() });
-
 const getUser = async (url) => {
     const queryresult = await connection.awaitQuery(`SELECT * FROM users WHERE url = ?`, [url.trim()]);
     return queryresult.length > 0 ? { ...queryresult[0] } : null
