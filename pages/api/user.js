@@ -28,6 +28,19 @@ const getValidUrl = async (url, sec = 0) => {
     }
 }
 
+const saveFile = async (file) => {
+    const data = fs.readFileSync(file.path);
+    fs.writeFileSync(`./public/photos/${file.name}`, data);
+    //await fs.unlinkSync(file.path);
+    return;
+};
+
+export const config = {
+    api: {
+        bodyParser: false
+    }
+};
+
 export default async function handler(req, res) {
     const { method } = req
 
@@ -43,8 +56,13 @@ export default async function handler(req, res) {
             break;
         case 'POST':
             try {
-                console.log(req.body)
-                const { name, photo, phone, instagram } = req.body
+                const form = new formidable.IncomingForm();
+                form.parse(req, async function (err, fields, files) {
+                    await saveFile(files.file);
+                    return res.status(201).send("");
+                });
+
+                /*const { name, photo, phone, instagram } = req.body
                 const _url = name.trim().split(' ').map(word => word.toLowerCase().trim()).join('-')
                 const url = await getValidUrl(_url)
                 //const urlPhoto = await writeImage(url, photo)
@@ -53,7 +71,7 @@ export default async function handler(req, res) {
                     name,
                     photo: urlPhoto,
                     url
-                })
+                })*/
             } catch (err) {
                 res.json(err);
                 res.status(500).end()
