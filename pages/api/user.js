@@ -1,5 +1,8 @@
 import connection from '../../mysql/connection'
 import fs from 'fs'
+import multer from 'multer';
+
+const upload = multer({ dest: os.tmpdir() });
 
 const getUser = async (url) => {
     const queryresult = await connection.awaitQuery(`SELECT * FROM users WHERE url = ?`, [url.trim()]);
@@ -15,8 +18,8 @@ const newUser = async (name, photo, url, phone, instagram) => {
     }
 }
 
-const writeImage = (url, photoBase64) => {
-    return new Promise((resolve, reject) => {
+const writeImage = async (url, photoBase64) => {
+    /*return new Promise((resolve, reject) => {
         const ext = photoBase64.split(':')[1].split(";")[0].split("/")[1];
         const base64Data = photoBase64.split('base64,')[1];
 
@@ -29,7 +32,7 @@ const writeImage = (url, photoBase64) => {
             } else
                 resolve(`/photos/${url}.${ext}`)
         });
-    })
+    })*/
 }
 
 const getValidUrl = async (url, sec = 0) => {
@@ -48,6 +51,8 @@ const getValidUrl = async (url, sec = 0) => {
 
 export default async function handler(req, res) {
     const { method } = req
+
+    console.log(req.body)
 
     switch (method) {
         case 'GET':

@@ -17,10 +17,13 @@ export default function Home() {
     e.preventDefault()
     try {
       const data = Object.fromEntries(new FormData(e.target))
-      const photo = await toBase64(photoRef.current.files[0])
-      alert(photo)
-      const res = await axios.post('/api/user', { ...data, photo })
-      //window.location.href = `/${res.data.url}`
+      const formData = new FormData();
+      formData.append('name', data.name)
+      formData.append('phone', data.phone)
+      formData.append('instagram', data.instagram)
+      formData.append('photo', photoRef.current.files[0])
+      const res = await axios.post('/api/user', formData, { headers: { "Content-Type": "multipart/form-data" } })
+      window.location.href = `/${res.data.url}`
     } catch (err) {
       alert(err.toString())
     }
