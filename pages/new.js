@@ -72,7 +72,7 @@ export default function Home() {
               Foto
             </label>
             <div className="flex justify-center">
-              <div className="mb-3 w-96">
+              <div className="mb-3 w-96 text-center">
                 <input
                   ref={photoRef}
                   onChange={changeImage}
@@ -92,7 +92,7 @@ export default function Home() {
                     m-0
                     focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" type="file" id="photo" name="photo" required />
 
-                <img src={createObjectURL} height={50} width={50} />
+                <img className='rounded-full border border-black inline-block aspect-square mt-5' src={createObjectURL} height={150} width={150} />
               </div>
             </div>
           </div>
