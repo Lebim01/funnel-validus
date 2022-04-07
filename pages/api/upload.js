@@ -31,7 +31,7 @@ const upload = multer({
     filename: async (req, file, cb) => {
       const _url = req.body.name.trim().split(' ').map(word => word.toLowerCase().trim()).join('-')
       const url = await getValidUrl(_url)
-      cb(null, `${url}.${path.extname(file.originalname)}`)
+      cb(null, `${url}${path.extname(file.originalname)}`)
     },
   }),
 });
@@ -52,7 +52,7 @@ apiRoute.post(async (req, res) => {
   const file = req.file
   const _url = name.trim().split(' ').map(word => word.toLowerCase().trim()).join('-')
   const url = await getValidUrl(_url)
-  const urlPhoto = 'photos/' + `${url}.${path.extname(file.originalname)}`
+  const urlPhoto = '/photos/' + `${url}${path.extname(file.originalname)}`
   await newUser(name, urlPhoto, url, phone, instagram)
   res.json({
     name,
