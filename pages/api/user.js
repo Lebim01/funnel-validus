@@ -20,6 +20,8 @@ const writeImage = (url, photoBase64) => {
         const ext = photoBase64.split(':')[1].split(";")[0].split("/")[1];
         const base64Data = photoBase64.split('base64,')[1];
 
+        console.log(base64Data)
+
         fs.writeFile(`public/photos/${url}.${ext}`, base64Data, 'base64', function (err) {
             if (err) {
                 console.log(err)
