@@ -23,7 +23,7 @@ export default function Home() {
       formData.append('name', data.name)
       formData.append('phone', data.phone)
       formData.append('instagram', data.instagram)
-      formData.append('file', i)
+      formData.append('file', image)
       const res = await fetch('/api/user', { method: 'POST', body: formData })
       //window.location.href = `/${res.data.url}`
     } catch (err) {
