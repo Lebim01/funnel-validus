@@ -29,6 +29,7 @@ const getValidUrl = async (url, sec = 0) => {
 }
 
 const saveFile = async (file) => {
+    console.log('saveFile', file.path, file.name)
     const data = fs.readFileSync(file.path);
     fs.writeFileSync(`./public/photos/${file.name}`, data);
     return;
@@ -57,6 +58,9 @@ export default async function handler(req, res) {
             try {
                 const form = new formidable.IncomingForm();
                 form.parse(req, async function (err, fields, files) {
+                    console.log('files', files.length)
+                    console.log('err', err)
+                    console.log('fields', fields)
                     await saveFile(files.file);
                     return res.status(201).send("");
                 });
