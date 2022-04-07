@@ -1,5 +1,6 @@
 import connection from '../../mysql/connection'
 import formidable from 'formidable'
+import fs from 'fs'
 
 const getUser = async (url) => {
     const queryresult = await connection.awaitQuery(`SELECT * FROM users WHERE url = ?`, [url.trim()]);
