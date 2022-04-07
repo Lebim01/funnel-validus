@@ -1,6 +1,7 @@
 import nextConnect from 'next-connect';
 import multer from 'multer';
 import connection from '../../mysql/connection'
+import path from 'path'
 
 const newUser = async (name, photo, url, phone, instagram) => {
   try {
@@ -15,7 +16,6 @@ const getValidUrl = async (url, sec = 0) => {
   try {
     const user = await getUser(url + `${sec === 0 ? '' : `-${sec}`}`)
     if (user) {
-      console.log(user)
       return getValidUrl(url, sec + 1)
     } else {
       return url + `${sec === 0 ? '' : `-${sec}`}`
@@ -28,7 +28,11 @@ const getValidUrl = async (url, sec = 0) => {
 const upload = multer({
   storage: multer.diskStorage({
     destination: './public/photos',
-    filename: (req, file, cb) => cb(null, file.originalname),
+    filename: async (req, file, cb) => {
+      const _url = req.body.name.trim().split(' ').map(word => word.toLowerCase().trim()).join('-')
+      const url = await getValidUrl(_url)
+      cb(null, `${url}.${path.extname(file.originalname)}`)
+    },
   }),
 });
 
@@ -45,10 +49,10 @@ apiRoute.use(upload.single('file'));
 
 apiRoute.post(async (req, res) => {
   const { name, phone, instagram } = req.body
-  const urlPhoto = 'photos/' + req.file.originalname
-
+  const file = req.file
   const _url = name.trim().split(' ').map(word => word.toLowerCase().trim()).join('-')
   const url = await getValidUrl(_url)
+  const urlPhoto = 'photos/' + `${url}.${path.extname(file.originalname)}`
   await newUser(name, urlPhoto, url, phone, instagram)
   res.json({
     name,
