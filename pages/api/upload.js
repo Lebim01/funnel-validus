@@ -1,5 +1,29 @@
 import nextConnect from 'next-connect';
 import multer from 'multer';
+import connection from '../../mysql/connection'
+
+const newUser = async (name, photo, url, phone, instagram) => {
+  try {
+    const queryresult = await connection.awaitQuery(`INSERT INTO users SET name = ?, photo = ?, url = ?, phone = ?, instagram = ?`, [name.trim(), photo.trim(), url, phone, instagram]);
+    return { ...queryresult[0] }
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+const getValidUrl = async (url, sec = 0) => {
+  try {
+    const user = await getUser(url + `${sec === 0 ? '' : `-${sec}`}`)
+    if (user) {
+      console.log(user)
+      return getValidUrl(url, sec + 1)
+    } else {
+      return url + `${sec === 0 ? '' : `-${sec}`}`
+    }
+  } catch {
+    return url
+  }
+}
 
 const upload = multer({
   storage: multer.diskStorage({
@@ -19,10 +43,18 @@ const apiRoute = nextConnect({
 
 apiRoute.use(upload.single('file'));
 
-apiRoute.post((req, res) => {
-  console.log(req)
+apiRoute.post(async (req, res) => {
+  const { name, phone, instagram } = req.body
+  const urlPhoto = 'photos/' + req.file.originalname
 
-  res.status(200).json({ data: 'success' });
+  const _url = name.trim().split(' ').map(word => word.toLowerCase().trim()).join('-')
+  const url = await getValidUrl(_url)
+  await newUser(name, urlPhoto, url, phone, instagram)
+  res.json({
+    name,
+    photo: urlPhoto,
+    url
+  })
 });
 
 export default apiRoute;

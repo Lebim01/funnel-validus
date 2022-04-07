@@ -30,13 +30,6 @@ const getValidUrl = async (url, sec = 0) => {
     }
 }
 
-const saveFile = async (file) => {
-    console.log('saveFile', file.path, file.name)
-    const data = fs.readFileSync(file.path);
-    fs.writeFileSync(`./public/photos/${file.name}`, data);
-    return;
-};
-
 export const config = {
     api: {
         bodyParser: false
@@ -58,25 +51,6 @@ export default async function handler(req, res) {
             break;
         case 'POST':
             try {
-                const form = new formidable.IncomingForm();
-                form.parse(req, async function (err, fields, files) {
-                    console.log('files', files.length)
-                    console.log('err', err)
-                    console.log('fields', fields)
-                    await saveFile(files.file);
-                    return res.status(201).send("");
-                });
-
-                /*const { name, photo, phone, instagram } = req.body
-                const _url = name.trim().split(' ').map(word => word.toLowerCase().trim()).join('-')
-                const url = await getValidUrl(_url)
-                //const urlPhoto = await writeImage(url, photo)
-                await newUser(name, urlPhoto, url, phone, instagram)
-                res.json({
-                    name,
-                    photo: urlPhoto,
-                    url
-                })*/
             } catch (err) {
                 res.json(err);
                 res.status(500).end()
