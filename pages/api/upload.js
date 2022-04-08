@@ -48,12 +48,12 @@ const apiRoute = nextConnect({
 apiRoute.use(upload.single('file'));
 
 apiRoute.post(async (req, res) => {
-  const { name, phone, instagram, description, video, lead = 0 } = req.body
+  const { name, phone, instagram, description, video, lead } = req.body
   const file = req.file
   const _url = name.trim().split(' ').map(word => word.toLowerCase().trim()).join('-')
   const url = await getValidUrl(_url)
   const urlPhoto = '/photos/' + `${url}${path.extname(file.originalname)}`
-  await newUser(name, urlPhoto, url, phone, instagram, description, video, lead)
+  await newUser(name, urlPhoto, url, phone, instagram, description, video, lead || 0)
   res.json({
     name,
     photo: urlPhoto,
