@@ -1,19 +1,8 @@
 import connection from '../../mysql/connection'
-import formidable from 'formidable'
-import fs from 'fs'
 
 const getUser = async (url) => {
     const queryresult = await connection.awaitQuery(`SELECT * FROM users WHERE url = ?`, [url.trim()]);
     return queryresult.length > 0 ? { ...queryresult[0] } : null
-}
-
-const newUser = async (name, photo, url, phone, instagram) => {
-    try {
-        const queryresult = await connection.awaitQuery(`INSERT INTO users SET name = ?, photo = ?, url = ?, phone = ?, instagram = ?`, [name.trim(), photo.trim(), url, phone, instagram]);
-        return { ...queryresult[0] }
-    } catch (err) {
-        console.error(err)
-    }
 }
 
 const getValidUrl = async (url, sec = 0) => {

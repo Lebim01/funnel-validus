@@ -169,7 +169,7 @@ export default function Custom() {
         <div className='text-center py-10 sm:px-20 overflow-hidden'>
           <div className='inline-block w-[450px] h-[300px] max-w-full'>
             <iframe
-              src={user.video ? user.video : "https://player.vimeo.com/video/695886230?h=377aadfb0d&autoplay=1&loop=1"}
+              src={user && user.video ? user.video : "https://player.vimeo.com/video/695886230?h=377aadfb0d&autoplay=1&loop=1"}
               className='w-full h-wull min-w-[450px] aspect-video'
               frameBorder="0"
               allow="autoplay; fullscreen; picture-in-picture"
