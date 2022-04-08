@@ -25,6 +25,7 @@ export default function Home() {
       formData.append('instagram', data.instagram)
       formData.append('video', data.video)
       formData.append('description', data.description)
+      formData.append('lead', 1)
       formData.append('file', image)
       const res = await fetch('/api/upload', { method: 'POST', body: formData }).then(response => response.json())
       window.location.href = `/${res.url}`
