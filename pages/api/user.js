@@ -6,24 +6,11 @@ const getUser = async (url) => {
 }
 
 export default async function handler(req, res) {
-    const { method } = req
-
-    switch (method) {
-        case 'GET':
-            try {
-                const user = await getUser(req.query.pid)
-                res.json(user)
-            } catch (err) {
-                res.json(err);
-                res.status(500).end()
-            }
-            break;
-        case 'POST':
-            try {
-            } catch (err) {
-                res.json(err);
-                res.status(500).end()
-            }
-            break;
+    try {
+        const user = await getUser(req.query.pid)
+        res.json(user)
+    } catch (err) {
+        res.json(err);
+        res.status(500).end()
     }
 }
