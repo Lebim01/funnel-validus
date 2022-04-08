@@ -73,13 +73,13 @@ export default function Home() {
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="instagram">
               Link de Instagram
             </label>
-            <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="instagram" name="instagram" type="text" placeholder="Opcional" autoComplete='off' />
+            <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="instagram" name="instagram" type="url" placeholder="Opcional" autoComplete='off' />
           </div>
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="video">
               Link de Video
             </label>
-            <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="video" name="video" type="text" placeholder="Opcional" autoComplete='off' />
+            <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="video" name="video" type="url" placeholder="Opcional" autoComplete='off' />
           </div>
           <div className="mb-6">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="photo">
