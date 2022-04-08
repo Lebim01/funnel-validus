@@ -5,7 +5,7 @@ import path from 'path'
 
 const newUser = async (name, photo, url, phone, instagram, description, video, lead = 0) => {
   try {
-    const queryresult = await connection.awaitQuery(`INSERT INTO users SET name = ?, photo = ?, url = ?, phone = ?, instagram = ?, description = ?, video = ?, lead = ?`, [name.trim(), photo.trim(), url, phone, instagram, description, video, Number(lead)]);
+    const queryresult = await connection.awaitQuery(`INSERT INTO users SET name = ?, photo = ?, url = ?, phone = ?, instagram = ?, description = ?, video = ?, is_lead = ?`, [name.trim(), photo.trim(), url, phone, instagram, description, video, Number(lead)]);
     return { ...queryresult[0] }
   } catch (err) {
     console.error(err)
