@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@u-wave/react-vimeo": "^0.9.6",
     "axios": "^0.26.1",
     "formidable": "^2.0.1",
     "moment": "^2.29.2",
