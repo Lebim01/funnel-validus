@@ -168,12 +168,14 @@ export default function Custom() {
       <div>
         {/** video */}
         <div className='text-center py-10 sm:px-20 overflow-hidden'>
-          <div className='inline-block w-[450px] h-[300px] max-w-full'>
+          <div className='inline-block max-w-full'>
             {user && user.video
               ? (
               <Vimeo
                 video={user.video}
                 autoplay
+                responsive
+                className='w-full'
               />
               ) : (
                 <iframe
